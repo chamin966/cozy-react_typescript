@@ -39,7 +39,15 @@ const RemoveBtn = styled.button`
 //TODO: 선택 취소, 주문하기 수량 가격 에러 해결, 사진에 문자넣기
 
 // products, checkedToOrder, id, imageUrl, price, title, count, addP, removeP, addO, removeO
-function ProductInCart({ products, checkedToOrder, id, addP, removeP, addO, removeO }) {
+function ProductInCart({
+  products,
+  checkedToOrder,
+  id,
+  addP,
+  removeP,
+  addO,
+  removeO,
+}) {
   const onClickRemoveProductBtn = () => {
     removeP(id);
     window.alert('장바구니에서 해당 품목이 삭제 되었습니다.');
@@ -82,7 +90,13 @@ function ProductInCart({ products, checkedToOrder, id, addP, removeP, addO, remo
   return (
     <ProductInCartContainer>
       <td>
-        <input type='checkbox' name='checkboxForOrder' checked={checkedToOrder[id]} value={id} onChange={onChangeChecked} />
+        <input
+          type='checkbox'
+          name='checkboxForOrder'
+          checked={checkedToOrder[id]}
+          value={id}
+          onChange={onChangeChecked}
+        />
       </td>
       <td>
         <ProductImage src={products[id].imageUrl} alt='제목없음' />
