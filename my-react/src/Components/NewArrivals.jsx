@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { addProuct } from '../products-in-cart-slice';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import { addProuct } from "../products-in-cart-slice";
 
 const NewArrivalsContainer = styled.div`
   display: flex;
@@ -48,19 +48,26 @@ const ProductInfo = styled.div`
   gap: 7px;
 `;
 
-function NewArrivals({ productInCart, id, imageUrl, price, title, addCartAtHome }) {
+function NewArrivals({
+  productInCart,
+  id,
+  imageUrl,
+  price,
+  title,
+  addCartAtHome,
+}) {
   const onClickAddCartBtn = () => {
     if (productInCart[id]) {
-      alert('이미 장바구니에 담긴 상품입니다.');
+      alert("이미 장바구니에 담긴 상품입니다.");
     } else {
       addCartAtHome();
-      alert('장바구니에 품목이 담겼습니다.');
+      alert("장바구니에 품목이 담겼습니다.");
     }
   };
   return (
     <NewArrivalsContainer>
       <Link to={`/${id}`} state={{ id, imageUrl, price, title }}>
-        <ProductImg src={imageUrl} alt='제목없음' />
+        <ProductImg src={imageUrl} alt="제목없음" />
       </Link>
       <ProductInfo>
         <div>{title}</div>
@@ -79,7 +86,13 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     addCartAtHome: () =>
       dispatch(
-        addProuct({ id: ownProps.id, imageUrl: ownProps.imageUrl, price: ownProps.price, title: ownProps.title, count: 1 })
+        addProuct({
+          id: ownProps.id,
+          imageUrl: ownProps.imageUrl,
+          price: ownProps.price,
+          title: ownProps.title,
+          count: 1,
+        })
       ),
   };
 }
