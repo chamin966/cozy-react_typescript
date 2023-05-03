@@ -1,8 +1,14 @@
+import React from 'react';
 import styled from 'styled-components';
 import NewArrivals from '../Components/NewArrivals';
 import BestSellers from '../Components/BestSellers';
 import BrandStory from '../Components/BrandStory';
-import { bestSellersInDB, brandStoryInDB, cozy_imagesInDB, newArrivalsInDB } from '../DB/db';
+import {
+  bestSellersInDB,
+  brandStoryInDB,
+  cozy_imagesInDB,
+  newArrivalsInDB,
+} from '../DB/db';
 
 const HomeContainer = styled.div`
   display: flex;
@@ -104,18 +110,35 @@ function Home() {
       <NewArrivalsFont>New Arrivals</NewArrivalsFont>
       <NewArrivalsContainer>
         {newArrivalsInDB.map((v, i) => (
-          <NewArrivals key={i} id={v.id} imageUrl={v.imgUrl} price={v.price} title={v.title} />
+          <NewArrivals
+            key={i}
+            id={v.id}
+            imageUrl={v.imgUrl}
+            price={v.price}
+            title={v.title}
+          />
         ))}
       </NewArrivalsContainer>
       <BestSellersContainer>
         <BestSellersFont>Best Sellers</BestSellersFont>
         {bestSellersInDB.map((v, i) => (
-          <BestSellers key={i} id={v.id} imageUrl={v.imgUrl} price={v.price} title={v.title} />
+          <BestSellers
+            key={i}
+            id={v.id}
+            imageUrl={v.imgUrl}
+            price={v.price}
+            title={v.title}
+          />
         ))}
       </BestSellersContainer>
       <BrandStoryContainer>
         {brandStoryInDB.map((v, i) => (
-          <BrandStory key={i} imageUrl={v.imgUrl} overview={v.overview} title={v.title} />
+          <BrandStory
+            key={i}
+            imageUrl={v.imgUrl}
+            overview={v.overview}
+            title={v.title}
+          />
         ))}
       </BrandStoryContainer>
     </HomeContainer>
