@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { connect } from "react-redux";
-import { removeProduct } from "../products-in-cart-slice";
-import ProductInCart from "../Components/ProductInCart";
-import { addOrder, removeOrder } from "../order-slice";
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { removeProduct } from 'Slices/productsInCartSlice';
+import ProductInCart from 'Components/ProductInCart';
+import { addOrder, removeOrder } from 'Slices/orderSlice';
 
 const CartContainer = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ const CartContentBox = styled.div`
   height: auto;
   width: 1000px;
   h1 {
-    font-family: "Bodoni Moda", serif;
+    font-family: 'Bodoni Moda', serif;
     color: #e4742a;
   }
 `;
@@ -123,7 +123,7 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
       Object.keys(products).forEach((v) => {
         let tempObj = {};
         Object.assign(tempObj, products[v]);
-        tempObj["id"] = v;
+        tempObj['id'] = v;
         addO(tempObj);
       });
     } else {
@@ -134,7 +134,7 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
   };
 
   const onClickCancleProducts = (e) => {
-    if (window.confirm("선택된 상품을 삭제하시겠습니까?")) {
+    if (window.confirm('선택된 상품을 삭제하시겠습니까?')) {
       Object.keys(checkedToOrder).forEach((v) => {
         removeO(v);
         removeP(v);
@@ -143,16 +143,16 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
   };
 
   const onClickOrderProducts = (e) => {
-    if (window.confirm("선택된 상품을 주문하시겠습니까?")) {
+    if (window.confirm('선택된 상품을 주문하시겠습니까?')) {
       Object.keys(checkedToOrder).forEach((v) => {
         removeO(v);
         removeP(v);
       });
-      window.alert("주문이 완료되었습니다.");
+      window.alert('주문이 완료되었습니다.');
     }
   };
 
-  console.log("물품:", products, "주문:", checkedToOrder);
+  console.log('물품:', products, '주문:', checkedToOrder);
 
   return (
     <CartContainer>
@@ -163,8 +163,8 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
             <tr>
               <th>
                 <input
-                  type="checkbox"
-                  name="checkboxForOrder"
+                  type='checkbox'
+                  name='checkboxForOrder'
                   checked={
                     Object.keys(checkedToOrder).length ===
                       Object.keys(products).length &&
@@ -206,7 +206,7 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
                     acc + checkedToOrder[cur].count * checkedToOrder[cur].price,
                   0
                 )
-                .toLocaleString()}{" "}
+                .toLocaleString()}{' '}
               원
             </div>
           </PriceAndEaBox>

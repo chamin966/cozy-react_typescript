@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { addProuct } from '../products-in-cart-slice';
+import { addProuct } from 'Slices/productsInCartSlice';
 
 //TODO: NewArrivals  컴포넌트랑 내부 구성 똑같음 나중에 최적화시키기
 
@@ -50,7 +50,14 @@ const ProductInfo = styled.div`
   gap: 7px;
 `;
 
-function BestSellers({ productInCart, id, imageUrl, price, title, addCartAtHome }) {
+function BestSellers({
+  productInCart,
+  id,
+  imageUrl,
+  price,
+  title,
+  addCartAtHome,
+}) {
   const onClickAddCartBtn = () => {
     if (productInCart[id]) {
       alert('이미 장바구니에 담긴 상품입니다.');
@@ -82,7 +89,13 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     addCartAtHome: () =>
       dispatch(
-        addProuct({ id: ownProps.id, imageUrl: ownProps.imageUrl, price: ownProps.price, title: ownProps.title, count: 1 })
+        addProuct({
+          id: ownProps.id,
+          imageUrl: ownProps.imageUrl,
+          price: ownProps.price,
+          title: ownProps.title,
+          count: 1,
+        })
       ),
   };
 }

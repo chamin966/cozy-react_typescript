@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import productsInCart from "./products-in-cart-slice";
-import order from "./order-slice";
+import { configureStore } from '@reduxjs/toolkit';
+import productsInCart from 'Slices/productsInCartSlice';
+import order from 'Slices/orderSlice';
 
 export default configureStore({
   reducer: {

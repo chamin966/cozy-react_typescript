@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState } from 'react';
-import { addProuct } from '../products-in-cart-slice';
+import { addProuct } from 'Slices/productsInCartSlice';
 
 const DetailContainer = styled.div`
   display: flex;
@@ -84,7 +84,9 @@ function Detail({ productInCart, addCartAtDetail }) {
 
   const onClickAddCartBtn = () => {
     if (productInCart[productInfo.id]) {
-      alert('이미 장바구니에 담긴 상품입니다.\n수량 변경은 장바구니 페이지에서 가능합니다.');
+      alert(
+        '이미 장바구니에 담긴 상품입니다.\n수량 변경은 장바구니 페이지에서 가능합니다.'
+      );
     } else {
       addCartAtDetail({
         id: productInfo.id,
@@ -113,7 +115,13 @@ function Detail({ productInCart, addCartAtDetail }) {
             <div>{productInfo.title}</div>
             <EaInfoBox>
               <div>수량</div>
-              <input type='number' value={productCount} min={1} max={99} onChange={onChangeProductCount} />
+              <input
+                type='number'
+                value={productCount}
+                min={1}
+                max={99}
+                onChange={onChangeProductCount}
+              />
             </EaInfoBox>
           </TextInfoBox>
           <PayInfoBox>

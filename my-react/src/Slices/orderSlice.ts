@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { IAddPayload, IState } from './products-in-cart-slice';
+import { IAddPayload, IState } from './productsInCartSlice';
 
 const order = createSlice({
   name: 'orderReducer',

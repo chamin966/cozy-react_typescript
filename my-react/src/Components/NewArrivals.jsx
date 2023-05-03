@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { connect } from "react-redux";
-import { addProuct } from "../products-in-cart-slice";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { addProuct } from 'Slices/productsInCartSlice';
 
 const NewArrivalsContainer = styled.div`
   display: flex;
@@ -58,16 +58,16 @@ function NewArrivals({
 }) {
   const onClickAddCartBtn = () => {
     if (productInCart[id]) {
-      alert("이미 장바구니에 담긴 상품입니다.");
+      alert('이미 장바구니에 담긴 상품입니다.');
     } else {
       addCartAtHome();
-      alert("장바구니에 품목이 담겼습니다.");
+      alert('장바구니에 품목이 담겼습니다.');
     }
   };
   return (
     <NewArrivalsContainer>
       <Link to={`/${id}`} state={{ id, imageUrl, price, title }}>
-        <ProductImg src={imageUrl} alt="제목없음" />
+        <ProductImg src={imageUrl} alt='제목없음' />
       </Link>
       <ProductInfo>
         <div>{title}</div>

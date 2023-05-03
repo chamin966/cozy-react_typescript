@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { cozy_imagesInDB } from '../DB/db';
+import { cozy_imagesInDB } from 'DB/db';
 
 const HeaderContainer = styled.div`
   height: 30vh;

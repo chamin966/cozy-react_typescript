@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import NewArrivals from '../Components/NewArrivals';
-import BestSellers from '../Components/BestSellers';
-import BrandStory from '../Components/BrandStory';
+import NewArrivals from 'Components/NewArrivals';
+import BestSellers from 'Components/BestSellers';
+import BrandStory from 'Components/BrandStory';
 import {
   bestSellersInDB,
   brandStoryInDB,

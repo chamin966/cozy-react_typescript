@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { addProuct, removeProduct } from '../products-in-cart-slice';
-import { addOrder, removeOrder } from '../order-slice';
+import { addProuct, removeProduct } from 'Slices/productsInCartSlice';
+import { addOrder, removeOrder } from 'Slices/orderSlice';
 
 const ProductInCartContainer = styled.tr`
   height: 100px;
