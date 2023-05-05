@@ -1,8 +1,10 @@
+import React, { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState } from 'react';
-import { addProuct } from 'Slices/productsInCartSlice';
+import { IAddPayload, IState, addProuct } from 'Slices/productsInCartSlice';
+import { AppDispatch, RootState } from 'src/store';
 
 const DetailContainer = styled.div`
   display: flex;
@@ -76,8 +78,22 @@ const PayButtonBox = styled.div`
   }
 `;
 
-function Detail({ productInCart, addCartAtDetail }) {
-  const location = useLocation();
+interface DetailProps {
+  productInCart: IState;
+  addCartAtDetail: (productInfoObj: IAddPayload) => void;
+}
+
+interface RouteState {
+  state: {
+    id: string;
+    imageUrl: string;
+    price: number;
+    title: string;
+  };
+}
+
+function Detail({ productInCart, addCartAtDetail }: DetailProps) {
+  const location = useLocation() as RouteState;
   const productInfo = location.state;
   const [productCount, setProductCount] = useState(1);
   const [totalPrice, setTotalPrice] = useState(productInfo.price);
@@ -99,9 +115,9 @@ function Detail({ productInCart, addCartAtDetail }) {
     }
   };
 
-  const onChangeProductCount = (e) => {
-    setProductCount(e.target.value);
-    setTotalPrice(productInfo.price * e.target.value);
+  const onChangeProductCount = (e: ChangeEvent<HTMLInputElement>) => {
+    setProductCount(parseInt(e.target.value));
+    setTotalPrice(productInfo.price * parseInt(e.target.value));
   };
 
   return (
@@ -144,13 +160,14 @@ function Detail({ productInCart, addCartAtDetail }) {
   );
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState) {
   return { productInCart: state.cartReducer };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch: AppDispatch) {
   return {
-    addCartAtDetail: (productInfoObj) => dispatch(addProuct(productInfoObj)),
+    addCartAtDetail: (productInfoObj: IAddPayload) =>
+      dispatch(addProuct(productInfoObj)),
   };
 }
 

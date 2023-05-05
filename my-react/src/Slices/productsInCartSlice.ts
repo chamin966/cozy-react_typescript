@@ -17,15 +17,17 @@ export interface IState {
   };
 }
 
+export const initState: IState = {};
+
 const productsInCart = createSlice({
   name: 'productInCartReducer',
-  initialState: {},
+  initialState: initState,
   reducers: {
-    addProuct: (state: IState, action: PayloadAction<IAddPayload>) => {
+    addProuct: (state, action: PayloadAction<IAddPayload>) => {
       const { id, imageUrl, price, title, count } = action.payload;
       state[id] = { imageUrl, price, title, count };
     },
-    removeProduct: (state: IState, action: PayloadAction<string>) => {
+    removeProduct: (state, action: PayloadAction<string>) => {
       delete state[action.payload];
     },
   },
@@ -33,4 +35,6 @@ const productsInCart = createSlice({
 
 export const { addProuct, removeProduct } = productsInCart.actions;
 
-export default productsInCart;
+const productsInCartReducer = productsInCart.reducer;
+
+export default productsInCartReducer;
