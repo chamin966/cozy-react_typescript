@@ -1,7 +1,14 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { addProuct, removeProduct } from 'Slices/productsInCartSlice';
+import {
+  IAddPayload,
+  IState,
+  addProuct,
+  removeProduct,
+} from 'Slices/productsInCartSlice';
 import { addOrder, removeOrder } from 'Slices/orderSlice';
+import { AppDispatch, RootState } from 'src/store';
 
 const ProductInCartContainer = styled.tr`
   height: 100px;
@@ -36,9 +43,15 @@ const RemoveBtn = styled.button`
   border: none;
 `;
 
-//TODO: 선택 취소, 주문하기 수량 가격 에러 해결, 사진에 문자넣기
-
-// products, checkedToOrder, id, imageUrl, price, title, count, addP, removeP, addO, removeO
+interface ProductInCartProps {
+  products: IState;
+  checkedToOrder: IState;
+  id: string;
+  addP: (productObj: IAddPayload) => void;
+  removeP: (id: string) => void;
+  addO: (productObj: IAddPayload) => void;
+  removeO: (id: string) => void;
+}
 function ProductInCart({
   products,
   checkedToOrder,
@@ -47,13 +60,13 @@ function ProductInCart({
   removeP,
   addO,
   removeO,
-}) {
+}: ProductInCartProps) {
   const onClickRemoveProductBtn = () => {
     removeP(id);
     window.alert('장바구니에서 해당 품목이 삭제 되었습니다.');
   };
 
-  const onChangeProductCount = (e) => {
+  const onChangeProductCount = (e: React.ChangeEvent<HTMLInputElement>) => {
     window.alert('수량이 변경되었습니다.');
     addP({
       id,
@@ -73,7 +86,7 @@ function ProductInCart({
     }
   };
 
-  const onChangeChecked = (e) => {
+  const onChangeChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       addO({
         id,
@@ -93,7 +106,7 @@ function ProductInCart({
         <input
           type='checkbox'
           name='checkboxForOrder'
-          checked={checkedToOrder[id]}
+          checked={checkedToOrder[id] !== undefined}
           value={id}
           onChange={onChangeChecked}
         />
@@ -127,16 +140,16 @@ function ProductInCart({
   );
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState) {
   return { products: state.cartReducer, checkedToOrder: state.orderReducer };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch: AppDispatch) {
   return {
-    addP: (productInfoObj) => dispatch(addProuct(productInfoObj)),
-    removeP: (id) => dispatch(removeProduct(id)),
-    addO: (productInfoObj) => dispatch(addOrder(productInfoObj)),
-    removeO: (id) => dispatch(removeOrder(id)),
+    addP: (productInfoObj: IAddPayload) => dispatch(addProuct(productInfoObj)),
+    removeP: (id: string) => dispatch(removeProduct(id)),
+    addO: (productInfoObj: IAddPayload) => dispatch(addOrder(productInfoObj)),
+    removeO: (id: string) => dispatch(removeOrder(id)),
   };
 }
 
