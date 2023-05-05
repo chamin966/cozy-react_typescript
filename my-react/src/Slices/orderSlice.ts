@@ -1,15 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { IAddPayload, IState, initState } from './productsInCartSlice';
+import { IAddPayload, initState } from './productsInCartSlice';
 
 const order = createSlice({
   name: 'orderReducer',
   initialState: initState,
   reducers: {
-    addOrder: (state: IState, action: PayloadAction<IAddPayload>) => {
+    addOrder: (state, action: PayloadAction<IAddPayload>) => {
       const { id, imageUrl, price, title, count } = action.payload;
       state[id] = { imageUrl, price, title, count };
     },
-    removeOrder: (state: IState, action: PayloadAction<string>) => {
+    removeOrder: (state, action: PayloadAction<string>) => {
       delete state[action.payload];
     },
   },

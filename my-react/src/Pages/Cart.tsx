@@ -1,8 +1,10 @@
+import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { removeProduct } from 'Slices/productsInCartSlice';
+import { IAddPayload, IState, removeProduct } from 'Slices/productsInCartSlice';
 import ProductInCart from 'Components/ProductInCart';
 import { addOrder, removeOrder } from 'Slices/orderSlice';
+import { AppDispatch, RootState } from 'src/store';
 
 const CartContainer = styled.div`
   display: flex;
@@ -117,14 +119,25 @@ const CozyCancleBtn = styled(CozyOrderBtn)`
   }
 `;
 
-function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
-  const onClickChecksAll = (e) => {
+interface CartProps {
+  products: IState;
+  checkedToOrder: IState;
+  addO: (productInfoObj: IAddPayload) => void;
+  removeP: (id: string) => void;
+  removeO: (id: string) => void;
+}
+
+function Cart({ products, checkedToOrder, removeP, removeO, addO }: CartProps) {
+  const onClickChecksAll = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       Object.keys(products).forEach((v) => {
-        let tempObj = {};
-        Object.assign(tempObj, products[v]);
-        tempObj['id'] = v;
-        addO(tempObj);
+        addO({
+          id: v,
+          imageUrl: products[v].imageUrl,
+          price: products[v].price,
+          title: products[v].title,
+          count: products[v].count,
+        });
       });
     } else {
       Object.keys(products).forEach((v) => {
@@ -133,7 +146,7 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
     }
   };
 
-  const onClickCancleProducts = (e) => {
+  const onClickCancleProducts = () => {
     if (window.confirm('선택된 상품을 삭제하시겠습니까?')) {
       Object.keys(checkedToOrder).forEach((v) => {
         removeO(v);
@@ -142,7 +155,7 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
     }
   };
 
-  const onClickOrderProducts = (e) => {
+  const onClickOrderProducts = () => {
     if (window.confirm('선택된 상품을 주문하시겠습니까?')) {
       Object.keys(checkedToOrder).forEach((v) => {
         removeO(v);
@@ -219,15 +232,15 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }) {
   );
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState) {
   return { products: state.cartReducer, checkedToOrder: state.orderReducer };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch: AppDispatch) {
   return {
-    removeP: (id) => dispatch(removeProduct(id)),
-    removeO: (id) => dispatch(removeOrder(id)),
-    addO: (productsObj) => dispatch(addOrder(productsObj)),
+    removeP: (id: string) => dispatch(removeProduct(id)),
+    removeO: (id: string) => dispatch(removeOrder(id)),
+    addO: (productsObj: IAddPayload) => dispatch(addOrder(productsObj)),
   };
 }
 
