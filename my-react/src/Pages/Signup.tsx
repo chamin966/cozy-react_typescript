@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const SignupContainer = styled.form`
@@ -53,7 +54,10 @@ function Signup() {
       <SignupFont>회원가입</SignupFont>
       <div>
         <div>아이디</div>
-        <input type='text' placeholder='영문, 숫자 조합으로 6~12자를 입력해주세요' />
+        <input
+          type='text'
+          placeholder='영문, 숫자 조합으로 6~12자를 입력해주세요'
+        />
       </div>
       <div>
         <div>Email</div>
@@ -61,7 +65,10 @@ function Signup() {
       </div>
       <div>
         <div>비밀번호</div>
-        <input type='password' placeholder='최소 8자 이상의 비밀번호를 입력해주세요' />
+        <input
+          type='password'
+          placeholder='최소 8자 이상의 비밀번호를 입력해주세요'
+        />
       </div>
       <div>
         <div>비밀번호 확인</div>
