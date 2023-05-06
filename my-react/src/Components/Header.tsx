@@ -1,9 +1,12 @@
+import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { cozy_imagesInDB } from 'DB/db';
+import { RootState } from 'src/store';
+import { IState } from 'Slices/productsInCartSlice';
 
 const HeaderContainer = styled.div`
   height: 30vh;
@@ -11,7 +14,7 @@ const HeaderContainer = styled.div`
   background-color: #faf9f7;
 `;
 
-const HeaderNavigation = styled.nav`
+const HeaderNavigation = styled.nav<{ position: number }>`
   position: fixed;
   width: 100%;
   background-color: #faf9f7;
@@ -81,7 +84,11 @@ const CartCountCircle = styled.div`
   border-radius: 50%;
 `;
 
-function Header({ productInCart }) {
+interface HeaderPorps {
+  productInCart: IState;
+}
+
+function Header({ productInCart }: HeaderPorps) {
   const [position, setPosition] = useState(0);
 
   const onScroll = () => {
@@ -121,7 +128,7 @@ function Header({ productInCart }) {
   );
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState) {
   return { productInCart: state.cartReducer };
 }
 

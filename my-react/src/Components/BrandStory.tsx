@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const BrandStoryContainer = styled.div`
@@ -40,10 +41,16 @@ const BrandStoryStyedPre = styled.pre`
   line-height: 23px;
 `;
 
-function BrandStory({ imageUrl, overview, title }) {
+interface BrandStoryProps {
+  imageUrl: string;
+  overview: string;
+  title: string;
+}
+
+function BrandStory({ imageUrl, overview, title }: BrandStoryProps) {
   return (
     <BrandStoryContainer>
-      <BrandStoryImg src={imageUrl} art='제목없음' />
+      <BrandStoryImg src={imageUrl} alt='제목없음' />
       <BrandStoryTextBox>
         <BrandStoryStyedSpan>{title}</BrandStoryStyedSpan>
         <BrandStoryStyedPre>{overview}</BrandStoryStyedPre>
