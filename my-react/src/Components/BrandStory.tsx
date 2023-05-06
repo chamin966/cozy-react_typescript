@@ -3,7 +3,9 @@ import styled from 'styled-components';
 
 const BrandStoryContainer = styled.div`
   display: grid;
+  width: 100%;
   grid-template-columns: 1fr 1fr;
+  box-sizing: border-box;
   padding: 0px 40px;
   margin-bottom: 100px;
   @media (max-width: 768px) {
@@ -24,6 +26,7 @@ const BrandStoryTextBox = styled.div`
   justify-content: center;
   padding-left: 50px;
   @media (max-width: 768px) {
+    align-items: center;
     padding-left: 0px;
     padding-top: 20px;
   }
@@ -36,9 +39,13 @@ const BrandStoryStyedSpan = styled.span`
   color: #194b44;
 `;
 
-const BrandStoryStyedPre = styled.pre`
+const BrandStoryStyedDiv = styled.div`
   color: #a7a19a;
   line-height: 23px;
+  word-break: keep-all;
+  @media (max-width: 375px) {
+    font-size: small;
+  }
 `;
 
 interface BrandStoryProps {
@@ -53,7 +60,11 @@ function BrandStory({ imageUrl, overview, title }: BrandStoryProps) {
       <BrandStoryImg src={imageUrl} alt='제목없음' />
       <BrandStoryTextBox>
         <BrandStoryStyedSpan>{title}</BrandStoryStyedSpan>
-        <BrandStoryStyedPre>{overview}</BrandStoryStyedPre>
+        <BrandStoryStyedDiv>
+          {overview.split('/').map((v) => (
+            <p>{v}</p>
+          ))}
+        </BrandStoryStyedDiv>
       </BrandStoryTextBox>
     </BrandStoryContainer>
   );

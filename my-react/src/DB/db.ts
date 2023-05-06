@@ -58,13 +58,13 @@ export const brandStoryInDB = [
     imgUrl: 'images/cozy_introduction1.jpg',
     title: 'with COZY',
     overview:
-      '따뜻한 커피 한 잔으로 시작하는 아침의 홈카페, \n여유로운 브런치와 하루의 피로를 씻어주는 저녁 식사,\n소중한 사람들과 함께하는 주말의 홈파티',
+      '따뜻한 커피 한 잔으로 시작하는 아침,/여유로운 브런치와 맛있는 저녁 식사,/소중한 사람들과 함께하는 주말의 홈파티',
   },
   {
     imgUrl: 'images/cozy_introduction2.jpg',
 
-    title: 'Way to make the table cozy',
+    title: 'Better COZY',
     overview:
-      '합리적인 가격으로 누구나 테이블을 아늑하게 꾸밀 수 있어요.\n가격 걱정은 코지테이블이 할테니 고객님은 쇼핑만 하세요.',
+      '합리적인 가격으로/누구나 테이블을 아늑하게 꾸밀 수 있어요./가격 걱정은 코지테이블이 할테니 고객님은 쇼핑만 하세요.',
   },
 ];
