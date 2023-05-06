@@ -1,7 +1,10 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { addProuct } from 'Slices/productsInCartSlice';
+import { AppDispatch, RootState } from 'src/store';
+import { IState } from 'Slices/productsInCartSlice';
 
 const NewArrivalsContainer = styled.div`
   display: flex;
@@ -48,6 +51,22 @@ const ProductInfo = styled.div`
   gap: 7px;
 `;
 
+interface NewArrivalsProps {
+  productInCart: IState;
+  id: string;
+  imageUrl: string;
+  price: number;
+  title: string;
+  addCartAtHome: () => void;
+}
+
+interface NewArrivalsownProps {
+  id: string;
+  imageUrl: string;
+  price: number;
+  title: string;
+}
+
 function NewArrivals({
   productInCart,
   id,
@@ -55,7 +74,7 @@ function NewArrivals({
   price,
   title,
   addCartAtHome,
-}) {
+}: NewArrivalsProps) {
   const onClickAddCartBtn = () => {
     if (productInCart[id]) {
       alert('이미 장바구니에 담긴 상품입니다.');
@@ -78,11 +97,14 @@ function NewArrivals({
   );
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState) {
   return { productInCart: state.cartReducer };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(
+  dispatch: AppDispatch,
+  ownProps: NewArrivalsownProps
+) {
   return {
     addCartAtHome: () =>
       dispatch(

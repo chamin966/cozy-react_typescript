@@ -1,7 +1,9 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { addProuct } from 'Slices/productsInCartSlice';
+import { IState, addProuct } from 'Slices/productsInCartSlice';
+import { AppDispatch, RootState } from 'src/store';
 
 //TODO: NewArrivals  컴포넌트랑 내부 구성 똑같음 나중에 최적화시키기
 
@@ -50,6 +52,22 @@ const ProductInfo = styled.div`
   gap: 7px;
 `;
 
+interface BestSellersProps {
+  productInCart: IState;
+  id: string;
+  imageUrl: string;
+  price: number;
+  title: string;
+  addCartAtHome: () => void;
+}
+
+interface BestSellersownProps {
+  id: string;
+  imageUrl: string;
+  price: number;
+  title: string;
+}
+
 function BestSellers({
   productInCart,
   id,
@@ -57,7 +75,7 @@ function BestSellers({
   price,
   title,
   addCartAtHome,
-}) {
+}: BestSellersProps) {
   const onClickAddCartBtn = () => {
     if (productInCart[id]) {
       alert('이미 장바구니에 담긴 상품입니다.');
@@ -81,11 +99,14 @@ function BestSellers({
   );
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state: RootState) {
   return { productInCart: state.cartReducer };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(
+  dispatch: AppDispatch,
+  ownProps: BestSellersownProps
+) {
   return {
     addCartAtHome: () =>
       dispatch(
