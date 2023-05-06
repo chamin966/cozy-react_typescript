@@ -107,7 +107,7 @@ function Detail({ productInCart, addCartAtDetail }: DetailProps) {
       addCartAtDetail({
         id: productInfo.id,
         imageUrl: productInfo.imageUrl,
-        price: totalPrice,
+        price: totalPrice / productCount,
         title: productInfo.title,
         count: productCount,
       });

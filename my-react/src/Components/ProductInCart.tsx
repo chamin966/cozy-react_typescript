@@ -63,6 +63,7 @@ function ProductInCart({
 }: ProductInCartProps) {
   const onClickRemoveProductBtn = () => {
     removeP(id);
+    removeO(id);
     window.alert('장바구니에서 해당 품목이 삭제 되었습니다.');
   };
 
