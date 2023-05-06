@@ -27,6 +27,8 @@ const CarouselImg = styled.img`
 
 const CarouselTextBox = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   top: 32%;
   padding-left: 20%;
@@ -48,8 +50,16 @@ const CarouselTextBox = styled.div`
   }
 
   @media (max-width: 768px) {
-    padding-left: 0px;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    padding-left: 0px;
+    #carousel-text1 {
+      font-size: max(8vw, 3rem); //8vw, 3rem 중 더 큰 것 선택
+    }
+    #carousel-text2 {
+      font-size: max(3vw, 1.4rem);
+    }
   }
 `;
 
@@ -62,6 +72,7 @@ const NewArrivalsContainer = styled.div`
   margin-bottom: 100px;
   gap: 10px;
   padding: 40px;
+
   @media (max-width: 768px) {
     display: block;
     margin-bottom: 0px;

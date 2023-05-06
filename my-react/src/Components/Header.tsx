@@ -62,9 +62,7 @@ const CozyLogoDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 18px;
   padding-top: 55px;
-
   img:hover {
     opacity: 0.6;
   }
