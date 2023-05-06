@@ -9,7 +9,8 @@ const FooterContainer = styled.div`
   width: 100%;
   background-color: #f3f2ed;
   font-size: small;
-  padding-left: 40px;
+  box-sizing: border-box;
+  padding: 0px 40px;
   gap: 20px;
   div {
     margin-top: 10px;

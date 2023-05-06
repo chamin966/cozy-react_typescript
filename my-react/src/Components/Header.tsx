@@ -23,7 +23,6 @@ const HeaderNavigation = styled.nav<{ position: number }>`
   place-items: center;
   height: 50px;
   z-index: 1;
-
   #cozy-logo {
     font-family: 'Bodoni Moda', serif;
     font-size: 1.2rem;
@@ -40,12 +39,10 @@ const HeaderNavigation = styled.nav<{ position: number }>`
         opacity: 0;
         visibility: hidden;`;
     }};
-
     &:hover {
       cursor: pointer;
     }
   }
-
   box-shadow: ${(props) => {
     if (props.position > 166) return `rgba(0, 0, 0, 0.1) 0px 4px 4px`;
     else return `none`;
