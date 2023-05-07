@@ -25,6 +25,7 @@ const BrandStoryTextBox = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-left: 50px;
+  text-align: center;
   @media (max-width: 768px) {
     align-items: center;
     padding-left: 0px;
@@ -39,7 +40,7 @@ const BrandStoryStyedSpan = styled.span`
   color: #194b44;
 `;
 
-const BrandStoryStyedDiv = styled.div`
+const BrandStoryStyledDiv = styled.div`
   color: #a7a19a;
   line-height: 23px;
   word-break: keep-all;
@@ -60,11 +61,11 @@ function BrandStory({ imageUrl, overview, title }: BrandStoryProps) {
       <BrandStoryImg src={imageUrl} alt='제목없음' />
       <BrandStoryTextBox>
         <BrandStoryStyedSpan>{title}</BrandStoryStyedSpan>
-        <BrandStoryStyedDiv>
+        <BrandStoryStyledDiv>
           {overview.split('/').map((v) => (
             <p>{v}</p>
           ))}
-        </BrandStoryStyedDiv>
+        </BrandStoryStyledDiv>
       </BrandStoryTextBox>
     </BrandStoryContainer>
   );
