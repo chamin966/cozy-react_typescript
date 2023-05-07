@@ -5,7 +5,6 @@ const SignupContainer = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 45vh;
   justify-content: center;
   align-items: center;
   gap: 20px;

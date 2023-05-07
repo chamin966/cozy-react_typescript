@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SigninContainer = styled.div`
-  min-height: 45vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 40vh;
   padding: 50px 0px;
+
+  @media (max-width: 768px) {
+    min-height: 70vh;
+  }
 `;
 
 const LoginForm = styled.form`
