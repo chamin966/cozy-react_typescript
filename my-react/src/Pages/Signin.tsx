@@ -18,6 +18,8 @@ const SigninContainer = styled.div`
 const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   font-size: large;
 
@@ -28,18 +30,34 @@ const LoginForm = styled.form`
   }
 
   input {
+    height: 40px;
+    width: 300px;
     border-radius: 5px;
     background-color: #fafafa;
     border: 1px solid gainsboro;
     padding-left: 10px;
   }
+`;
 
-  button {
-    width: 100%;
-    border-radius: 10px;
-    border: none;
-    background-color: #e4742a;
-    margin-bottom: 10px;
+const NomalLoginBtn = styled.button`
+  font-size: 1rem;
+  height: 45px;
+  width: 300px;
+  border-radius: 12px;
+  border: none;
+  background-color: #e4742a;
+  margin-bottom: 10px;
+  color: white;
+`;
+
+const KaKaoLoginBtn = styled.button`
+  border: none;
+  border-radius: 12px;
+
+  img {
+    border-radius: 12px;
+    height: 45px;
+    width: 300px;
   }
 `;
 
@@ -51,6 +69,20 @@ const SignupLinkBox = styled.div`
 `;
 
 function Signin() {
+  const client_id = `${process.env.REACT_APP_REST_API_KEY}`;
+  const REDIRECT_URI = `${process.env.REACT_APP_REST_REDIRECT_URL}`;
+  // oauth 요청 URL
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${client_id}&redirect_uri=${REDIRECT_URI}`;
+
+  const onClickKakaLogin = (e: React.MouseEvent) => {
+    e.preventDefault();
+    console.log(kakaoURL);
+    window.location.href = kakaoURL;
+  };
+
+  const onClickLogin = (e: React.MouseEvent) => {
+    window.alert('일치하는 아이디/비밀번호 정보가 없습니다.');
+  };
   return (
     <SigninContainer>
       <LoginForm>
@@ -59,8 +91,13 @@ function Signin() {
         <SignupLinkBox>
           <Link to={'/signup'}>회원가입</Link>
         </SignupLinkBox>
-        <button>로그인</button>
-        <button>카카오 간편 로그인</button>
+        <NomalLoginBtn onClick={onClickLogin}>로그인</NomalLoginBtn>
+        <KaKaoLoginBtn onClick={onClickKakaLogin}>
+          <img
+            src='/images/kakao_login_large_wide.png'
+            alt='카카오 로그인 버튼'
+          />
+        </KaKaoLoginBtn>
       </LoginForm>
     </SigninContainer>
   );

@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { cozy_imagesInDB } from 'DB/db';
-import { RootState } from 'src/store';
+import { AppDispatch, RootState } from 'src/store';
 import { IState } from 'Slices/productsInCartSlice';
+import { setToken, tokenState } from 'Slices/setTokenSlice';
+import axios from 'axios';
 
 const HeaderContainer = styled.div`
   height: 30vh;
@@ -158,12 +160,36 @@ const ToggleSpansBtn = styled.div<{ isOpenTogleMenu: boolean }>`
 
 interface HeaderPorps {
   productInCart: IState;
+  tokens: tokenState;
+  logoutAtHeader: (tokenObj: tokenState) => void;
 }
-//TODO: 일정 너비 이하로 줄어들면 로고 이미지 없애고 헤더만 남기고 드롭박스로 교체하기
 
-function Header({ productInCart }: HeaderPorps) {
+function Header({ productInCart, tokens, logoutAtHeader }: HeaderPorps) {
+  const [isLogin, setIslogin] = useState(false);
   const [position, setPosition] = useState(0);
   const [isOpenTogleMenu, setIsOpenTogleMenu] = useState(false);
+
+  const onClickLogOut = () => {
+    const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+    const LOGOUT_REDIRECT_URI = process.env.REACT_APP_REST_LOGOUT_REDIRECT_URL;
+    axios
+      .get(
+        `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`,
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${tokens.accessToken}`,
+          },
+        }
+      )
+      .then(() => {
+        window.alert('성공적으로 로그아웃 되었습니다.');
+        logoutAtHeader({
+          accessToken: '',
+          refreshToken: '',
+        });
+      });
+  };
 
   const onClickToggle = () => {
     setIsOpenTogleMenu(!isOpenTogleMenu);
@@ -185,6 +211,13 @@ function Header({ productInCart }: HeaderPorps) {
     };
   }, []);
 
+  useEffect(() => {
+    if (tokens.accessToken === '') setIslogin(false);
+    else {
+      setIslogin(true);
+    }
+  }, [tokens]);
+
   return (
     <HeaderContainer>
       <HeaderNavigation position={position} isOpenTogleMenu={isOpenTogleMenu}>
@@ -192,9 +225,15 @@ function Header({ productInCart }: HeaderPorps) {
           Cozytable
         </Link>
         <LoginAndCartDiv isOpenTogleMenu={isOpenTogleMenu}>
-          <Link to={'/signin'} onClick={onClickLink}>
-            Login
-          </Link>
+          {isLogin === false ? (
+            <Link to={'/signin'} onClick={onClickLink}>
+              Login
+            </Link>
+          ) : (
+            <Link to={'/'} onClick={onClickLogOut}>
+              Logout
+            </Link>
+          )}
           <div>
             <Link to={'/cart'} onClick={onClickLink}>
               Cart
@@ -214,8 +253,9 @@ function Header({ productInCart }: HeaderPorps) {
         </ToggleSpansBtn>
       </HeaderNavigation>
       <CozyLogoDiv>
+        {/* TODO: 로그인하면 이미지 깨지는 거 해결하기, code 리덕스에 추가하고 새로고침해도 되도록 막기*/}
         <Link to={'/'}>
-          <img src={cozy_imagesInDB[0].imgUrl} alt='제목없음' />
+          <img src={cozy_imagesInDB[0].imgUrl} alt='로고 이미지' />
         </Link>
       </CozyLogoDiv>
     </HeaderContainer>
@@ -223,7 +263,13 @@ function Header({ productInCart }: HeaderPorps) {
 }
 
 function mapStateToProps(state: RootState) {
-  return { productInCart: state.cartReducer };
+  return { productInCart: state.cartReducer, tokens: state.tokenReducer };
 }
 
-export default connect(mapStateToProps)(Header);
+function mapDispatchToProps(dispatch: AppDispatch) {
+  return {
+    logoutAtHeader: (tokenObj: tokenState) => dispatch(setToken(tokenObj)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -62,8 +62,8 @@ function BrandStory({ imageUrl, overview, title }: BrandStoryProps) {
       <BrandStoryTextBox>
         <BrandStoryStyedSpan>{title}</BrandStoryStyedSpan>
         <BrandStoryStyledDiv>
-          {overview.split('/').map((v) => (
-            <p>{v}</p>
+          {overview.split('/').map((v, i) => (
+            <p key={i}>{v}</p>
           ))}
         </BrandStoryStyledDiv>
       </BrandStoryTextBox>

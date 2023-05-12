@@ -1,11 +1,14 @@
+// 이미지 절대경로 맨 앞에 슬래시 없으면 url의 pathname에 영향을 받아서 오류 발생 가능
+// 이렇게 써야함 -> /images/cozy_logo.jpg
+
 export const cozy_imagesInDB = [
   {
     title: 'cozy_logo',
-    imgUrl: 'images/cozy_logo.png',
+    imgUrl: '/images/cozy_logo.jpg',
   },
   {
     title: 'cozy_main',
-    imgUrl: 'images/cozy_main.jpg',
+    imgUrl: '/images/cozy_main.jpg',
     text1: '대충 차렸는데\n브런치 카페 느낌',
     text2: 'SYRACUSE MAPLE TABLEWARE',
   },
@@ -16,19 +19,19 @@ export const bestSellersInDB = [
     id: '1001',
     title: '카네수즈 레트로 원형 플레이트 세트',
     price: 17200,
-    imgUrl: 'images/cozy_item1.jpg',
+    imgUrl: '/images/cozy_item1.jpg',
   },
   {
     id: '1002',
     title: '코지테이블 미우캣츠 투명 내열 유리컵',
     price: 8500,
-    imgUrl: 'images/cozy_item2.jpg',
+    imgUrl: '/images/cozy_item2.jpg',
   },
   {
     id: '1003',
     title: '오로라 홀로그램 내열 글라스 술잔',
     price: 14900,
-    imgUrl: 'images/cozy_item3.jpg',
+    imgUrl: '/images/cozy_item3.jpg',
   },
 ];
 
@@ -37,31 +40,31 @@ export const newArrivalsInDB = [
     id: '1004',
     title: '화이트 도자기 화병',
     price: 16900,
-    imgUrl: 'images/cozy_new1.jpg',
+    imgUrl: '/images/cozy_new1.jpg',
   },
   {
     id: '1005',
     title: '시라쿠스 메이플 2인 홈세트',
     price: 119000,
-    imgUrl: 'images/cozy_new2.jpg',
+    imgUrl: '/images/cozy_new2.jpg',
   },
   {
     id: '1006',
     title: '모모 접시 그릇 세트',
     price: 33500,
-    imgUrl: 'images/cozy_new3.jpg',
+    imgUrl: '/images/cozy_new3.jpg',
   },
 ];
 
 export const brandStoryInDB = [
   {
-    imgUrl: 'images/cozy_introduction1.jpg',
+    imgUrl: '/images/cozy_introduction1.jpg',
     title: 'with COZY',
     overview:
       '따뜻한 커피 한 잔으로 시작하는 아침,/여유로운 브런치와 맛있는 저녁 식사,/소중한 사람들과 함께하는 주말의 홈파티',
   },
   {
-    imgUrl: 'images/cozy_introduction2.jpg',
+    imgUrl: '/images/cozy_introduction2.jpg',
 
     title: 'Better COZY',
     overview:
