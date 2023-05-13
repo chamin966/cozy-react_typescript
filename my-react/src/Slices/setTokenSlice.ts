@@ -11,7 +11,7 @@ const initState = {
 };
 
 const token = createSlice({
-  name: 'orderReducer',
+  name: 'setTokenReducer',
   initialState: initState,
   reducers: {
     setToken: (state, action: PayloadAction<tokenState>) => {

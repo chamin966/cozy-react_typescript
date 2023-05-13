@@ -18,6 +18,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.3.9",
     "typescript": "^3.2.1",
     "web-vitals": "^2.1.4"
@@ -26,9 +27,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@types/redux-persist": "^4.3.1",
     "customize-cra": "^1.0.0",
     "gh-pages": "^5.0.0",
     "react-app-rewire-alias": "^1.1.7",
