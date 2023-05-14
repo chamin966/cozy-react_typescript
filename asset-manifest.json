@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/cozy-react_typescript/static/js/main.52f1e675.js",
-    "index.html": "/cozy-react_typescript/index.html",
-    "main.52f1e675.js.map": "/cozy-react_typescript/static/js/main.52f1e675.js.map"
+    "main.js": "/static/js/main.8cc349b1.js",
+    "index.html": "/index.html",
+    "main.8cc349b1.js.map": "/static/js/main.8cc349b1.js.map"
   },
   "entrypoints": [
-    "static/js/main.52f1e675.js"
+    "static/js/main.8cc349b1.js"
   ]
 }
