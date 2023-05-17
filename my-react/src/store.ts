@@ -23,6 +23,9 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
+  // 리덕스 에러 해결 방법: type의 인자로 string 값이 전달되어야 하는데 함수가 전달돼서 오류가 발생한 것이다.
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

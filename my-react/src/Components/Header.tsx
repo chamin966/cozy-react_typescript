@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { cozy_imagesInDB } from 'DB/db';
 import { AppDispatch, RootState } from 'src/store';
@@ -162,33 +162,52 @@ interface HeaderPorps {
   productInCart: IState;
   tokens: tokenState;
   logoutAtHeader: (tokenObj: tokenState) => void;
+  setTokensAtKakaoCallBack: (tokenObj: tokenState) => void;
 }
 
-function Header({ productInCart, tokens, logoutAtHeader }: HeaderPorps) {
+function Header({
+  productInCart,
+  tokens,
+  logoutAtHeader,
+  setTokensAtKakaoCallBack,
+}: HeaderPorps) {
   const [isLogin, setIslogin] = useState(false);
   const [position, setPosition] = useState(0);
   const [isOpenTogleMenu, setIsOpenTogleMenu] = useState(false);
+  const navigate = useNavigate();
 
-  const onClickLogOut = () => {
-    const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-    const LOGOUT_REDIRECT_URI = process.env.REACT_APP_REST_LOGOUT_REDIRECT_URL;
-    axios
-      .get(
-        `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`,
-        {
+  const onClickLogOut = async () => {
+    const APP_ADMIN_KEY = process.env.REACT_APP_REST_APP_ADMIN_KEY;
+    try {
+      const userId = (
+        await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
             Authorization: `Bearer ${tokens.accessToken}`,
           },
-        }
-      )
-      .then(() => {
-        window.alert('성공적으로 로그아웃 되었습니다.');
-        logoutAtHeader({
-          accessToken: '',
-          refreshToken: '',
+        })
+      ).data.id;
+
+      axios
+        .post(
+          'https://kapi.kakao.com/v1/user/logout',
+          { target_id_type: 'user_id', target_id: userId },
+          {
+            headers: {
+              Authorization: `KakaoAK ${APP_ADMIN_KEY}`,
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+          }
+        )
+        .then(() => {
+          window.alert('성공적으로 로그아웃 되었습니다.');
+          logoutAtHeader({
+            accessToken: '',
+            refreshToken: '',
+          });
         });
-      });
+    } catch (e) {
+      console.log('로그아웃 실패: ', e);
+    }
   };
 
   const onClickToggle = () => {
@@ -218,24 +237,55 @@ function Header({ productInCart, tokens, logoutAtHeader }: HeaderPorps) {
     }
   }, [tokens]);
 
+  useEffect(() => {
+    const code = new URL(window.location.href).searchParams.get('code');
+    if (code) {
+      const client_id = `${process.env.REACT_APP_REST_API_KEY}`;
+      const REDIRECT_URI = `${process.env.REACT_APP_REST_REDIRECT_URL}`;
+
+      try {
+        axios
+          .post(
+            `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${client_id}&redirect_uri=${REDIRECT_URI}&code=${code}`,
+            { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+          )
+          .then((res) => {
+            const data = res.data;
+            setTokensAtKakaoCallBack({
+              accessToken: data.access_token,
+              refreshToken: data.refresh_token,
+            });
+            navigate(`${process.env.PUBLIC_URL}/`);
+          });
+      } catch (e) {
+        console.log('로그인 실패', e);
+        throw e;
+      }
+    }
+  });
+
   return (
     <HeaderContainer>
       <HeaderNavigation position={position} isOpenTogleMenu={isOpenTogleMenu}>
-        <Link id='cozy-text-logo' to={'/'} onClick={onClickLink}>
+        <Link
+          id='cozy-text-logo'
+          to={`${process.env.PUBLIC_URL}/`}
+          onClick={onClickLink}
+        >
           Cozytable
         </Link>
         <LoginAndCartDiv isOpenTogleMenu={isOpenTogleMenu}>
           {isLogin === false ? (
-            <Link to={'/signin'} onClick={onClickLink}>
+            <Link to={`${process.env.PUBLIC_URL}/signin`} onClick={onClickLink}>
               Login
             </Link>
           ) : (
-            <Link to={'/'} onClick={onClickLogOut}>
+            <Link to={`${process.env.PUBLIC_URL}/`} onClick={onClickLogOut}>
               Logout
             </Link>
           )}
           <div>
-            <Link to={'/cart'} onClick={onClickLink}>
+            <Link to={`${process.env.PUBLIC_URL}/cart`} onClick={onClickLink}>
               Cart
             </Link>
             <CartCountCircle>
@@ -253,8 +303,7 @@ function Header({ productInCart, tokens, logoutAtHeader }: HeaderPorps) {
         </ToggleSpansBtn>
       </HeaderNavigation>
       <CozyLogoDiv>
-        {/* TODO: 로그인하면 이미지 깨지는 거 해결하기, code 리덕스에 추가하고 새로고침해도 되도록 막기*/}
-        <Link to={'/'}>
+        <Link to={`${process.env.PUBLIC_URL}/`}>
           <img src={cozy_imagesInDB[0].imgUrl} alt='로고 이미지' />
         </Link>
       </CozyLogoDiv>
@@ -269,6 +318,8 @@ function mapStateToProps(state: RootState) {
 function mapDispatchToProps(dispatch: AppDispatch) {
   return {
     logoutAtHeader: (tokenObj: tokenState) => dispatch(setToken(tokenObj)),
+    setTokensAtKakaoCallBack: (tokenObj: tokenState) =>
+      dispatch(setToken(tokenObj)),
   };
 }
 

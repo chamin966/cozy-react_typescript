@@ -85,7 +85,10 @@ function NewArrivals({
   };
   return (
     <NewArrivalsContainer>
-      <Link to={`/${id}`} state={{ id, imageUrl, price, title }}>
+      <Link
+        to={`${process.env.PUBLIC_URL}/${id}`}
+        state={{ id, imageUrl, price, title }}
+      >
         <ProductImg src={imageUrl} alt='제목없음' />
       </Link>
       <ProductInfo>

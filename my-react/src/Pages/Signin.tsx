@@ -77,6 +77,7 @@ function Signin() {
   const onClickKakaLogin = (e: React.MouseEvent) => {
     e.preventDefault();
     console.log(kakaoURL);
+    console.log(window.location);
     window.location.href = kakaoURL;
   };
 
@@ -89,12 +90,12 @@ function Signin() {
         <input type='text' placeholder='아이디' />
         <input type='password' placeholder='비밀번호' />
         <SignupLinkBox>
-          <Link to={'/signup'}>회원가입</Link>
+          <Link to={`${process.env.PUBLIC_URL}/signup`}>회원가입</Link>
         </SignupLinkBox>
         <NomalLoginBtn onClick={onClickLogin}>로그인</NomalLoginBtn>
         <KaKaoLoginBtn onClick={onClickKakaLogin}>
           <img
-            src='/images/kakao_login_large_wide.png'
+            src={process.env.PUBLIC_URL + '/images/kakao_login_large_wide.png'}
             alt='카카오 로그인 버튼'
           />
         </KaKaoLoginBtn>

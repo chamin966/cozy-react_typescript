@@ -29,7 +29,7 @@ function KakaoCallBack({ setTokensAtKakaoCallBack }: KakaoCallBackProps) {
             accessToken: data.access_token,
             refreshToken: data.refresh_token,
           });
-          navigate('/');
+          navigate(`${process.env.PUBLIC_URL}/`);
         });
     } catch (e) {
       console.log('로그인 실패', e);
