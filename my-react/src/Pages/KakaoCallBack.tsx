@@ -5,6 +5,9 @@ import { AppDispatch } from 'src/store';
 import { setToken, tokenState } from 'Slices/setTokenSlice';
 import { useNavigate } from 'react-router-dom';
 
+// 깃 배포시에 페이지 라우팅을 하면 404 에러가 발생하기 때문에 해당 파일은 배포 시에 사용되지 않습니다만
+// 깃 배포가 아니라면 해당 파일로 리다이렉팅이 가능하기 때문에 코드를 남겨놓았습니다.
+
 interface KakaoCallBackProps {
   setTokensAtKakaoCallBack: (tokenObj: tokenState) => void;
 }
