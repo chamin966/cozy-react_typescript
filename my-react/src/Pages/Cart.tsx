@@ -76,7 +76,7 @@ const PriceAndEaBox = styled.div`
   }
 `;
 
-const OderButtonBox = styled.div`
+const OrderButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
@@ -224,9 +224,9 @@ function Cart({ products, checkedToOrder, removeP, removeO, addO }: CartProps) {
             </div>
           </PriceAndEaBox>
         </ProductTextLower>
-        <OderButtonBox>
+        <OrderButtonBox>
           <CozyOrderBtn onClick={onClickOrderProducts}>ORDER</CozyOrderBtn>
-        </OderButtonBox>
+        </OrderButtonBox>
       </CartContentBox>
     </CartContainer>
   );

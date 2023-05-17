@@ -152,7 +152,7 @@ function Detail({ productInCart, addCartAtDetail }: DetailProps) {
           </PayInfoBox>
           <PayButtonBox>
             <button onClick={onClickAddCartBtn}>ADD CART</button>
-            <button>ODER</button>
+            <button>ORDER</button>
           </PayButtonBox>
         </InfoBox>
       </DetailBox>
