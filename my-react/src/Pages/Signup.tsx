@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SignupContainer = styled.form`
@@ -70,6 +71,7 @@ const ConfirmMessageDiv = styled.div<{
 `;
 
 function Signup() {
+  const navigate = useNavigate();
   const [id, setId] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -138,8 +140,10 @@ function Signup() {
     }
   };
 
-  const onSumitSignup = () => {
+  const onSumitSignup = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     window.alert('회원가입이 완료되었습니다!');
+    navigate(`${process.env.PUBLIC_URL}/`);
   };
 
   return (
