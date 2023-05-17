@@ -119,8 +119,10 @@ header에 cart에 담겨있는 상품의 개수를 보여줍니다.
     실제 서버가 있는 실무에서의 배포는 원래대로 진행할 수 있도록 KakaoCallback.jsx 파일을
     사용하는 방법으로도 로컬 환경에서는 문제 없이 돌아감을 확인하였습니다.
 
-### 레퍼런스
-
----
+## 레퍼런스
 
 - [cozy-table 이미지 및 디자인 출처](https://cozytable.co.kr/)
+
+## 배운 것 및 프로젝트 소감
+
+개인 공부용 노션 웹 : https://organized-mantis-bc1.notion.site/ee22b322ce974f20b6c3b56e8e1ec92f
